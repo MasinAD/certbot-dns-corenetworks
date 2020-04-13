@@ -10,7 +10,7 @@ install_requires = [
     "requests",
     "mock",
     "requests-mock",
-    "lexicon"
+    "dns-lexicon"
 ]
 
 # read the contents of your README file
