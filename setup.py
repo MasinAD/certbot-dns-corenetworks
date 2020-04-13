@@ -10,6 +10,7 @@ install_requires = [
     "requests",
     "mock",
     "requests-mock",
+    "lexicon"
 ]
 
 # read the contents of your README file
@@ -20,14 +21,14 @@ with open(path.join(this_directory, "README.rst")) as f:
     long_description = f.read()
 
 setup(
-    name="certbot-dns-ispconfig",
+    name="certbot-dns-corenetworks",
     version=version,
-    description="ispconfig DNS Authenticator plugin for Certbot",
+    description="Core Networks DNS Authenticator plugin for Certbot",
     long_description=long_description,
     long_description_content_type="text/x-rst",
-    url="https://github.com/m42e/certbot-dns-ispconfig",
-    author="Matthias Bilger",
-    author_email="matthias@bilger.info",
+    url="https://github.com/MasinAD/certbot-dns-corenetworks",
+    author="Masin Al-Dujaili",
+    author_email="masin.aldujaili@googlemail.com",
     license="Apache License 2.0",
     python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*",
     classifiers=[
@@ -56,8 +57,8 @@ setup(
     install_requires=install_requires,
     entry_points={
         "certbot.plugins": [
-            "dns-ispconfig = certbot_dns_ispconfig.dns_ispconfig:Authenticator"
+            "dns-corenetworks = certbot_dns_corenetworks.dns_corenetworks:Authenticator"
         ]
     },
-    test_suite="certbot_dns_ispconfig",
+    test_suite="certbot_dns_corenetworks",
 )

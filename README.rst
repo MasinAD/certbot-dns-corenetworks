@@ -9,7 +9,7 @@ creating, and subsequently removing, TXT records using the Core Networks beta AP
 Configuration of Core Networks
 ---------------------------
 
-In the `Allgemein -> Profil -> API-Benutze` you have to have a user with a login name and password
+In the `Allgemein -> Profil -> API-Benutzer` you have to have a user with a login name and password
 
 .. _Core_Networks: https://beta.api.core-networks.de/doc/
 .. _certbot: https://certbot.eff.org/
@@ -25,16 +25,16 @@ Installation
 Named Arguments
 ---------------
 
-To start using DNS authentication for ispconfig, pass the following arguments on
+To start using DNS authentication for Core Networks, pass the following arguments on
 certbot's command line:
 
 ============================================================= ==============================================
-``--authenticator certbot-dns-ispconfig:dns-ispconfig``          select the authenticator plugin (Required)
+``--authenticator certbot-dns-corenetworks:dns-corenetworks``          select the authenticator plugin (Required)
 
-``--certbot-dns-ispconfig:dns-ispconfig-credentials``         ispconfig Remote User credentials
+``--certbot-dns-corenetworks:dns-corenetworks-credentials``         Core Networks Remote User credentials
                                                               INI file. (Required)
 
-``--certbot-dns-ispconfig:dns-ispconfig-propagation-seconds`` | waiting time for DNS to propagate before asking
+``--certbot-dns-corenetworks:dns-corenetworks-propagation-seconds`` | waiting time for DNS to propagate before asking
                                                               | the ACME server to verify the DNS record.
                                                               | (Default: 10, Recommended: >= 600)
 ============================================================= ==============================================
@@ -50,17 +50,17 @@ An example ``credentials.ini`` file:
 
 .. code-block:: ini
 
-   certbot_dns_ispconfig:dns_ispconfig_username = myremoteuser
-   certbot_dns_ispconfig:dns_ispconfig_password = verysecureremoteuserpassword
-   certbot_dns_ispconfig:dns_ispconfig_endpoint = https://localhost:8080/remote/json.php
+   certbot_dns_corenetworks:dns_corenetworks_username = myremoteuser
+   certbot_dns_corenetworks:dns_corenetworks_password = verysecureremoteuserpassword
+   certbot_dns_corenetworks:dns_corenetworks_endpoint = https://localhost:8080/remote/json.php
 
 The path to this file can be provided interactively or using the
-``--certbot-dns-ispconfig:dns-ispconfig-credentials`` command-line argument. Certbot
+``--certbot-dns-corenetworks:dns-corenetworks-credentials`` command-line argument. Certbot
 records the path to this file for use during renewal, but does not store the
 file's contents.
 
 **CAUTION:** You should protect these API credentials as you would the
-password to your ispconfig account. Users who can read this file can use these
+password to your Core Networks account. Users who can read this file can use these
 credentials to issue arbitrary API calls on your behalf. Users who can cause
 Certbot to run using these credentials can complete a ``dns-01`` challenge to
 acquire new certificates or revoke existing certificates for associated
@@ -83,9 +83,9 @@ To acquire a single certificate for both ``example.com`` and
 .. code-block:: bash
 
    certbot certonly \
-     --authenticator certbot-dns-ispconfig:dns-ispconfig \
-     --certbot-dns-ispconfig:dns-ispconfig-credentials /etc/letsencrypt/.secrets/domain.tld.ini \
-     --certbot-dns-ispconfig:dns-ispconfig-propagation-seconds 900 \
+     --authenticator certbot-dns-corenetworks:dns-corenetworks \
+     --certbot-dns-corenetworks:dns-corenetworks-credentials /etc/letsencrypt/.secrets/domain.tld.ini \
+     --certbot-dns-corenetworks:dns-corenetworks-propagation-seconds 900 \
      --server https://acme-v02.api.letsencrypt.org/directory \
      --agree-tos \
      --rsa-key-size 4096 \
