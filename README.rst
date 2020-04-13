@@ -1,22 +1,17 @@
-certbot-dns-ispconfig
+certbot-dns-corenetworks
 =====================
 
-ISPConfig_ DNS Authenticator plugin for Certbot
+Core_Networks_ DNS Authenticator plugin for Certbot
 
 This plugin automates the process of completing a ``dns-01`` challenge by
-creating, and subsequently removing, TXT records using the ISPConfig Remote API.
+creating, and subsequently removing, TXT records using the Core Networks beta API.
 
-Configuration of ISPConfig
+Configuration of Core Networks
 ---------------------------
 
-In the `System -> Remote Users` you have to have a user, with the following rights
+In the `Allgemein -> Profil -> API-Benutze` you have to have a user with a login name and password
 
-- Client Functions
-- DNS zone functions
-- DNS txt functions
-
-
-.. _ISPConfig: https://www.ispconfig.org/
+.. _Core_Networks: https://beta.api.core-networks.de/doc/
 .. _certbot: https://certbot.eff.org/
 
 Installation
@@ -24,7 +19,7 @@ Installation
 
 ::
 
-    pip install certbot-dns-ispconfig
+    pip install certbot-dns-corenetworks
 
 
 Named Arguments
@@ -97,38 +92,3 @@ To acquire a single certificate for both ``example.com`` and
      -d 'example.com' \
      -d '*.example.com'
 
-
-Docker
-------
-
-In order to create a docker container with a certbot-dns-ispconfig installation,
-create an empty directory with the following ``Dockerfile``:
-
-.. code-block:: docker
-
-    FROM certbot/certbot
-    RUN pip install certbot-dns-ispconfig
-
-Proceed to build the image::
-
-    docker build -t certbot/dns-ispconfig .
-
-Once that's finished, the application can be run as follows::
-
-    docker run --rm \
-       -v /var/lib/letsencrypt:/var/lib/letsencrypt \
-       -v /etc/letsencrypt:/etc/letsencrypt \
-       --cap-drop=all \
-       certbot/dns-ispconfig certonly \
-       --authenticator certbot-dns-ispconfig:dns-ispconfig \
-       --certbot-dns-ispconfig:dns-ispconfig-propagation-seconds 900 \
-       --certbot-dns-ispconfig:dns-ispconfig-credentials \
-           /etc/letsencrypt/.secrets/domain.tld.ini \
-       --no-self-upgrade \
-       --keep-until-expiring --non-interactive --expand \
-       --server https://acme-v02.api.letsencrypt.org/directory \
-       -d example.com -d '*.example.com'
-
-It is suggested to secure the folder as follows::
-chown root:root /etc/letsencrypt/.secrets
-chmod 600 /etc/letsencrypt/.secrets
