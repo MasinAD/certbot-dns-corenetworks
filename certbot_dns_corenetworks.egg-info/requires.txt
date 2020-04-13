@@ -4,4 +4,4 @@ setuptools
 requests
 mock
 requests-mock
-lexicon
+dns-lexicon

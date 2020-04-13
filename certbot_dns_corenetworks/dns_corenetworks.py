@@ -26,6 +26,14 @@ class Authenticator(dns_common.DNSAuthenticator):
     ttl = 60
 
     def __init__(self, *args, **kwargs):
+#        l = open('corenetworks.log', 'a')
+#        for arg in args:
+#            l.write("Arg: %s\n" % arg)
+#        for kwarg in kwargs:
+#            l.write("KWarg: %s\n" % kwarg)
+#        l.write(str(config))
+#        l.write("Authenticator instantiated with args %s and kwargs %s" % (*args, **kwargs))
+#        l.close()
         super(Authenticator, self).__init__(*args, **kwargs)
         self.credentials = None
 
@@ -47,6 +55,9 @@ class Authenticator(dns_common.DNSAuthenticator):
                 'password': 'Password for API user'
             }
         )
+#        l = open('corenetworks.log', 'a')
+#        l.write("_setup_credentials configured these credentials: %s\n" % str(self.credentials) )
+#        l.close()
 
     def _perform(self, domain, validation_name, validation):
         self._get_corenetworks_client().add_txt_record(domain, validation_name, validation)
@@ -65,11 +76,13 @@ class _CoreNetworksLexiconClient(dns_common_lexicon.LexiconClient):
 
     def __init__(self, login, password, ttl):
         super(_CoreNetworksLexiconClient, self).__init__()
-
+#        l = open('corenetworks.log', 'a')
+#        l.write("_CoreNetworksLexiconClient instantiated with login {0} and password {1}".format(login, password))
+#        l.close()
         config = dns_common_lexicon.build_lexicon_config('corenetworks', {
             'ttl': ttl,
         }, {
-            'auth_usernam': login,
+            'auth_username': login,
             'auth_password': password
         })
 
