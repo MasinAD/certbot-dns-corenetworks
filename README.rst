@@ -28,16 +28,16 @@ Named Arguments
 To start using DNS authentication for Core Networks, pass the following arguments on
 certbot's command line:
 
-============================================================= ==============================================
-``--authenticator certbot-dns-corenetworks:dns-corenetworks``          select the authenticator plugin (Required)
+=================================================================== ==============================================
+``--authenticator certbot-dns-corenetworks:dns-corenetworks``         select the authenticator plugin (Required)
 
-``--certbot-dns-corenetworks:dns-corenetworks-credentials``         Core Networks Remote User credentials
-                                                              INI file. (Required)
+``--certbot-dns-corenetworks:dns-corenetworks-credentials``           Core Networks Remote User credentials
+                                                                      INI file. (Required)
 
 ``--certbot-dns-corenetworks:dns-corenetworks-propagation-seconds`` | waiting time for DNS to propagate before asking
-                                                              | the ACME server to verify the DNS record.
-                                                              | (Default: 10, Recommended: >= 600)
-============================================================= ==============================================
+                                                                    | the ACME server to verify the DNS record.
+                                                                    | (Default: 10, Recommended: >= 600)
+=================================================================== ==============================================
 
 (Note that the verbose and seemingly redundant ``certbot-dns-corenetworks:``
 prefix is currently imposed by certbot for external plugins.)
