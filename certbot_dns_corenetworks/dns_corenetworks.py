@@ -2,7 +2,7 @@
 import logging
 
 import zope.interface
-from lexicon import corenetworks
+from lexicon.providers import corenetworks
 
 from certbot import errors
 from certbot import interfaces
