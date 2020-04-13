@@ -1,0 +1,124 @@
+Metadata-Version: 2.1
+Name: certbot-dns-corenetworks
+Version: 0.2.0
+Summary: Core Networks DNS Authenticator plugin for Certbot
+Home-page: https://github.com/MasinAD/certbot-dns-corenetworks
+Author: Masin Al-Dujaili
+Author-email: masin.aldujaili@googlemail.com
+License: Apache License 2.0
+Description: certbot-dns-corenetworks
+        =====================
+        
+        Core_Networks_ DNS Authenticator plugin for Certbot
+        
+        This plugin automates the process of completing a ``dns-01`` challenge by
+        creating, and subsequently removing, TXT records using the Core Networks beta API.
+        
+        Configuration of Core Networks
+        ---------------------------
+        
+        In the `Allgemein -> Profil -> API-Benutzer` you have to have a user with a login name and password
+        
+        .. _Core_Networks: https://beta.api.core-networks.de/doc/
+        .. _certbot: https://certbot.eff.org/
+        
+        Installation
+        ------------
+        
+        ::
+        
+            pip install certbot-dns-corenetworks
+        
+        
+        Named Arguments
+        ---------------
+        
+        To start using DNS authentication for Core Networks, pass the following arguments on
+        certbot's command line:
+        
+        ============================================================= ==============================================
+        ``--authenticator certbot-dns-corenetworks:dns-corenetworks``          select the authenticator plugin (Required)
+        
+        ``--certbot-dns-corenetworks:dns-corenetworks-credentials``         Core Networks Remote User credentials
+                                                                      INI file. (Required)
+        
+        ``--certbot-dns-corenetworks:dns-corenetworks-propagation-seconds`` | waiting time for DNS to propagate before asking
+                                                                      | the ACME server to verify the DNS record.
+                                                                      | (Default: 10, Recommended: >= 600)
+        ============================================================= ==============================================
+        
+        (Note that the verbose and seemingly redundant ``certbot-dns-corenetworks:``
+        prefix is currently imposed by certbot for external plugins.)
+        
+        
+        Credentials
+        -----------
+        
+        An example ``credentials.ini`` file:
+        
+        .. code-block:: ini
+        
+           certbot_dns_corenetworks:dns_corenetworks_username = myremoteuser
+           certbot_dns_corenetworks:dns_corenetworks_password = verysecureremoteuserpassword
+        
+        The path to this file can be provided interactively or using the
+        ``--certbot-dns-corenetworks:dns-corenetworks-credentials`` command-line argument. Certbot
+        records the path to this file for use during renewal, but does not store the
+        file's contents.
+        
+        **CAUTION:** You should protect these API credentials as you would the
+        password to your Core Networks account. Users who can read this file can use these
+        credentials to issue arbitrary API calls on your behalf. Users who can cause
+        Certbot to run using these credentials can complete a ``dns-01`` challenge to
+        acquire new certificates or revoke existing certificates for associated
+        domains, even if those domains aren't being managed by this server.
+        
+        Certbot will emit a warning if it detects that the credentials file can be
+        accessed by other users on your system. The warning reads "Unsafe permissions
+        on credentials configuration file", followed by the path to the credentials
+        file. This warning will be emitted each time Certbot uses the credentials file,
+        including for renewal, and cannot be silenced except by addressing the issue
+        (e.g., by using a command like ``chmod 600`` to restrict access to the file).
+        
+        
+        Examples
+        --------
+        
+        To acquire a single certificate for both ``example.com`` and
+        ``*.example.com``, waiting 900 seconds for DNS propagation:
+        
+        .. code-block:: bash
+        
+           certbot certonly \
+             --authenticator certbot-dns-corenetworks:dns-corenetworks \
+             --certbot-dns-corenetworks:dns-corenetworks-credentials /etc/letsencrypt/.secrets/domain.tld.ini \
+             --certbot-dns-corenetworks:dns-corenetworks-propagation-seconds 900 \
+             --server https://acme-v02.api.letsencrypt.org/directory \
+             --agree-tos \
+             --rsa-key-size 4096 \
+             -d 'example.com' \
+             -d '*.example.com'
+        
+        
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Plugins
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Security
+Classifier: Topic :: System :: Installation/Setup
+Classifier: Topic :: System :: Networking
+Classifier: Topic :: System :: Systems Administration
+Classifier: Topic :: Utilities
+Requires-Python: >=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*
+Description-Content-Type: text/x-rst

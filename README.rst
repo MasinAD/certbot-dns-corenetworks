@@ -39,8 +39,8 @@ certbot's command line:
                                                               | (Default: 10, Recommended: >= 600)
 ============================================================= ==============================================
 
-(Note that the verbose and seemingly redundant ``certbot-dns-ispconfig:`` prefix
-is currently imposed by certbot for external plugins.)
+(Note that the verbose and seemingly redundant ``certbot-dns-corenetworks:``
+prefix is currently imposed by certbot for external plugins.)
 
 
 Credentials
@@ -52,7 +52,6 @@ An example ``credentials.ini`` file:
 
    certbot_dns_corenetworks:dns_corenetworks_username = myremoteuser
    certbot_dns_corenetworks:dns_corenetworks_password = verysecureremoteuserpassword
-   certbot_dns_corenetworks:dns_corenetworks_endpoint = https://localhost:8080/remote/json.php
 
 The path to this file can be provided interactively or using the
 ``--certbot-dns-corenetworks:dns-corenetworks-credentials`` command-line argument. Certbot
